@@ -142,6 +142,12 @@ public class QuizResource {
     @Produces("application/json")
     public String answer(@PathParam("questao") int questao, @PathParam("letra") String alternativa) {
         
+        while(QuizDS.getRespondendo()){
+            //enquanto outro jogador estiver respondendo alguma questão aguarda
+            //para não haver conflitos (exclusão mútua)
+        }
+        //Quando começa o processo de resposta registra no sistema que está respondendo
+        QuizDS.setRespondendo(true);
         //Se a questao ainda nao foi respondida
         if (!QuizDS.getQuestoesAcertadas().contains(questao) && !QuizDS.getQuestoesErradas().contains(questao)) {
             //se a questao foi corretamente respondida
@@ -151,9 +157,11 @@ public class QuizResource {
                 return "1";
             } else {
                 QuizDS.getQuestoesErradas().add(questao);
+                QuizDS.setRespondendo(false);
                 return "0";
             }
         } else {
+            QuizDS.setRespondendo(false);
             return "-1";
         }
     }

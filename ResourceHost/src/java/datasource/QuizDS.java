@@ -16,6 +16,7 @@ public class QuizDS {
      private static Jogador jogador2;
      private static List<Integer> questoesAcertadas = new ArrayList<Integer>();
      private static List<Integer> questoesErradas = new ArrayList<Integer>();
+     private static boolean respondendo;
      
     public static enum Gabarito {
     QUESTAO_1(1,"c"), QUESTAO_2(2,"a"), QUESTAO_3(4,"a"), QUESTAO_4(4,"b"), QUESTAO_5(5,"c"),
@@ -134,6 +135,14 @@ public class QuizDS {
 
     public static synchronized void setQuestoesErradas(List<Integer> questoesErradas) {
         QuizDS.questoesErradas = questoesErradas;
+    }
+    
+    public static synchronized boolean getRespondendo() {
+        return respondendo;
+    }
+
+    public static synchronized void setRespondendo(boolean respondendo) {
+        QuizDS.respondendo = respondendo;
     }
      
 }
